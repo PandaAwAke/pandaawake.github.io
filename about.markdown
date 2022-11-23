@@ -1,18 +1,12 @@
 ---
 layout: page
-title: About
+title: 关于
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+这是 PandaAwake 于 2022年11月24日(大四) 创建的个人博客
+主要用于记录一些...呃...综合网上很多垃圾并自己解决一些问题后能work的方案
+以及一些科研工作，一些思考...各种事吧
 
 
-[jekyll-organization]: https://github.com/jekyll
+南京大学 计算机科学与技术系
