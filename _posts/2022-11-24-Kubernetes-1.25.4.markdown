@@ -271,7 +271,7 @@ kubectl get nodes
 
 0. **如果你是重装 K8s，或者之前捣鼓过 CNI 插件，一定要在所有机子上 `sudo rm -rf /etc/cni` 清除干净配置文件，否则你 kubeadm reset 都成功不了**
 
-1. 下载 flannel 资源文件：直接下载或复制 https://github.com/flannel-io/flannel/blob/master/Documentation/kube-flannel.yml，写这篇博客的时候 git commit 是 28ed89494c82970f2c1a0763d2bad6bb03a3fed3
+1. 下载 flannel 资源文件：直接下载或复制 [https://github.com/flannel-io/flannel/blob/master/Documentation/kube-flannel.yml](https://github.com/flannel-io/flannel/blob/master/Documentation/kube-flannel.yml)，写这篇博客的时候 git commit 是 28ed89494c82970f2c1a0763d2bad6bb03a3fed3
 
 2. 修改 flannel 网卡：找到下面这段，在 args 添加 --iface=enp0s8（因为之前虚拟机配置的第二个网卡是Host-Only，且enp0s8就是我虚拟机的第二个网卡，如果你的不一样需要自己找找咯）
 

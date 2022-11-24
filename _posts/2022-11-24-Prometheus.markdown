@@ -1,15 +1,15 @@
 ---
 layout: post
-title:  "在 Kubernetes 1.25.4 集群中安装 Prometheus 2.40.2 安装实录与复现教程"
-date:   2022-11-24 13:10:00 +0800
-categories: Kubernetes Ubuntu 虚拟机
+title:  "在 Kubernetes 1.25.4 集群中安装 Prometheus + Grafana 安装实录与复现教程"
+date:   2022-11-24 14:00:00 +0800
+categories: Kubernetes Prometheus Grafana
 ---
 
 
 
 ## 目标
 
-在 "中国互联网环境 内搭建的基于 3 台虚拟机 (固定IP) 的 Kubernetes 1.25.4 + Containerd 的集群运行环境" 中安装 Prometheus 2.40.2 + Grafana。
+在 "中国互联网环境 内搭建的基于 3 台虚拟机 (固定IP) 的 Kubernetes 1.25.4 + Containerd 的集群运行环境" 中安装 Prometheus + Grafana。
 
 K8s 集群的安装是基于 [Kubernetes 1.25.4 (Virtualbox7.0.4 + Ubuntu22.04 + Containerd) 安装实录与复现教程]({% post_url 2022-11-24-Kubernetes-1.25.4 %}) 进行的。
 
@@ -26,7 +26,7 @@ K8s 集群的安装是基于 [Kubernetes 1.25.4 (Virtualbox7.0.4 + Ubuntu22.04 +
 
 要安装的 Kubernetes 资源：
 
-* https://github.com/prometheus-operator/kube-prometheus
+* [https://github.com/prometheus-operator/kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
 
 在笔者实装时，kube-prometheus 的 git commit 为 35f69e8b03bdfed476769e9e0992bd750a393387。
 
@@ -143,5 +143,5 @@ kubectl get pods -n monitoring
 
 ## 参考资料
 
-https://cloud.tencent.com/developer/article/1986296
+[kubernetes（k8s） 安装 Prometheus + Grafana](https://cloud.tencent.com/developer/article/1986296)
 
