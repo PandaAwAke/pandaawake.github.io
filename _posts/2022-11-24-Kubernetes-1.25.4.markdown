@@ -110,7 +110,7 @@ sudo sysctl --system	# 重新加载 sysctl
 
 为了方便，给出使用 USTC 源的命令：
 
-`sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list`
+`sudo sed -i 's/cn.archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list`
 
 ### SSH (非必须)
 
@@ -202,6 +202,8 @@ sudo sysctl --system	# 重新加载 sysctl
    ```shell
    sudo apt update
    sudo apt install -y kubelet kubeadm kubectl
+   或者
+   sudo apt install -y kubelet=1.25.4-00 kubeadm=1.25.4-00 kubectl=1.25.4-00
    sudo apt-mark hold kubelet kubeadm kubectl	# 防止它们被自动升级等
    ```
 
