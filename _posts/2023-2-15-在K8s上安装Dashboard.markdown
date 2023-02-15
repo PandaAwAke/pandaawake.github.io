@@ -29,7 +29,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/a
 
 这里给出我的版本（该版本暴露了NodePort 31000端口，还修改了登录过期时间为7天）：
 
-[]: {{site.url}}/assets/2023-2-15-在K8s上安装Dashboard.assets/kube-dashboard.yaml	"kube-dashboard.yaml"
+[kube-dashboard.yaml]({{site.url}}/assets/2023-2-15-在K8s上安装Dashboard.assets/kube-dashboard.yaml)
 
 
 
@@ -96,7 +96,7 @@ kubectl apply -f kube-dashboard.yaml
 
 你可以创建`kube-dashboard-token.yaml`，或下载
 
-[]: {{site.url}}/assets/2023-2-15-在K8s上安装Dashboard.assets/kube-dashboard-token.yaml	"kube-dashboard-token.yaml"
+[kube-dashboard-token.yaml]({{site.url}}/assets/2023-2-15-在K8s上安装Dashboard.assets/kube-dashboard-token.yaml)
 
 内容如下：
 
