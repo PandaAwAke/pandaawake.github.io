@@ -47,6 +47,12 @@ git clone https://github.com/prometheus-operator/kube-prometheus
 cd kube-prometheus
 ```
 
+如果你要使用和本教程一样的版本，请继续执行：
+
+```bash
+git reset --hard 35f69e8b03bdfed476769e9e0992bd750a393387
+```
+
 
 
 ## 修改镜像源
