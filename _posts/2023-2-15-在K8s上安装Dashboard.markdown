@@ -129,6 +129,12 @@ subjects:
     namespace: kubernetes-dashboard
 ```
 
+### 应用资源文件
+
+```bash
+kubectl apply -f kube-dashboard-token.yaml
+```
+
 
 
 ## 获取 Token 并登录
