@@ -267,6 +267,8 @@ echo KUBELET_EXTRA_ARGS=\"--node-ip=`ip addr show enp0s8 | grep inet | grep -E -
 sudo systemctl restart kubelet
 ```
 
+如果后面出现了NotReady可以尝试一下重启机器或者重启一下containerd
+
 
 
 ## 利用 kubeadm 拉起与加入 Kubernetes 集群
