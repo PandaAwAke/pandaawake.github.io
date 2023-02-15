@@ -33,10 +33,12 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/a
 
 
 
+如果你是自己下载的而不是用我的，你可能还需要进行下面两个操作。
 
-### 暴露端口
 
-而且默认是不暴露端口的，如果你需要暴露端口的话找到下面这一段并自行暴露：
+### 暴露端口 (可选)
+
+默认是不暴露端口的，如果你需要暴露端口的话找到下面这一段并自行暴露：
 
 ```yaml
 kind: Service
@@ -58,7 +60,7 @@ spec:
 
 
 
-### 修改登录过期时间
+### 修改登录过期时间 (可选)
 
 默认登录过期时间是15min，太短了，每次过期都要重新输token，太麻烦，你可以自己改长一点
 
@@ -131,3 +133,10 @@ subjects:
 
 ## 获取 Token 并登录
 
+### 获取 Token
+
+```bash
+kubectl describe secret kubernetes-dashboard-secret -n kubernetes-dashboard
+```
+
+之后用这个 token 去登录即可。
