@@ -254,7 +254,7 @@ sudo sysctl --system	# 重新加载 sysctl
 sudo hostnamectl --static set-hostname [主机名]
 ```
 
-**最好别忘了修改每一台机器的 `/etc/hosts` **
+**最好别忘了修改每一台机器的 `/etc/hosts`**
 
 #### 修改 kubelet 配置 IP 地址
 
