@@ -83,8 +83,8 @@ spec:
 ## 访问并登录 RabbitMQ 面板页面
 
 ```bash
-username="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)"
-password="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+username="$(kubectl get secret 你的RabbitMQ集群名-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+password="$(kubectl get secret 你的RabbitMQ集群名-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 
 
 echo "username: $username"
