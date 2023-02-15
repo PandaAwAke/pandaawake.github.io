@@ -11,7 +11,9 @@ categories: Kubernetes Dashboard
 
 安装 Kubernetes Dashboard。尽可能让读者可以复刻。
 
-官网对Dashboard的安装教程：[部署和访问 Kubernetes 仪表板（Dashboard） | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
+官网对Dashboard的安装教程：
+
+[部署和访问 Kubernetes 仪表板（Dashboard）](https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
 
 但本博客要做一些拓展，以便我们的访问。所以本博客的一部分内容是搬运上述链接的。
 
@@ -145,4 +147,4 @@ kubectl apply -f kube-dashboard-token.yaml
 kubectl describe secret kubernetes-dashboard-secret -n kubernetes-dashboard
 ```
 
-之后用这个 token 去登录即可。
+之后用这个 token 去登录即可。另外注意登录时需要在地址前面加上 `https`。
