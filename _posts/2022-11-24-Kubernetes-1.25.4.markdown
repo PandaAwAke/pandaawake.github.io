@@ -9,13 +9,13 @@ categories: Kubernetes Ubuntu 虚拟机
 
 
 
-## 目标
+# 目标
 
 在 中国互联网环境 内搭建基于 3 台虚拟机 (固定IP) 的 Kubernetes 1.25.4 + Containerd 集群运行环境。
 
 
 
-## 环境
+# 环境
 
 这里完整记录环境，以确保读者的复现：
 
@@ -26,7 +26,7 @@ categories: Kubernetes Ubuntu 虚拟机
 
 
 
-## 基于虚拟机复制的K8s集群搭建
+# 基于虚拟机复制的K8s集群搭建
 
 本节我将说明比较适合复制虚拟机的步骤。
 
@@ -37,9 +37,9 @@ categories: Kubernetes Ubuntu 虚拟机
 
 如果你想复制虚拟机，装1台就够了，其他的直接复制后改个主机名和IP地址就行。
 
-### 第一台虚拟机
+## 第一台虚拟机
 
-#### 安装
+### 安装
 
 在主机 (Ubuntu 22.04 LTS) 下使用 Virtualbox 7.0.4 创建虚拟机，Windows 主机应该没啥区别。
 
@@ -49,7 +49,7 @@ Virtualbox 和扩展包的安装过程应该可以省略，镜像使用 `ubuntu-
 
 
 
-#### 虚拟机网卡设置
+### 虚拟机网卡设置
 
 创建时网卡很重要，我换了好几种配置，多少都会出错，最终成功能跑的配置是：
 
@@ -60,7 +60,7 @@ Virtualbox 和扩展包的安装过程应该可以省略，镜像使用 `ubuntu-
 
 
 
-#### 换源 (非必须)
+### 换源 (非必须)
 
 在国内的你可以换源以加快速度。
 
@@ -73,7 +73,7 @@ sudo sed -i 's/cn.archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.lis
 
 
 
-#### 基础软件安装
+### 基础软件安装
 
 ```bash
 sudo apt update
@@ -82,7 +82,7 @@ sudo apt install -y vim net-tools
 
 
 
-#### SSH (非必须)
+### SSH (非必须)
 
 为了方便，你可以给每台虚拟机安装 ssh，甚至按照需求开启 ssh 的 root 登录权限。如果需要开启 root 登录权限以更好的利用 sftp 等工具操作文件或进行其他操作，可以参考 [Ubuntu中开启ssh允许root远程ssh登录的方法](https://cloud.tencent.com/developer/article/1445519)。
 
@@ -92,7 +92,7 @@ sudo apt install openssh-server
 
 
 
-#### 网络配置
+### 网络配置
 
 现在需要修改 netplan 配置文件，以设定咱们虚拟机的 IP。因为设置了两张网卡，虚拟机系统里默认是没完全开启也没配置的。
 
@@ -113,7 +113,7 @@ sudo apt install openssh-server
 
 也可以自己配置一个DNS服务器，这样更优雅，但我还是比较懒😩，所以算了
 
-#### 禁用Swap
+### 禁用Swap
 
 ```shell
 sudo swapoff -a
@@ -121,7 +121,7 @@ sudo sed -i '/swap/ s/^\(.*\)$/#\1/g' /etc/fstab	# 注释swap
 free -h		# 检查swap是否被关闭，Swap若为0则没问题
 ```
 
-#### 打开内核功能与开启IPv4转发
+### 打开内核功能与开启IPv4转发
 
 ```shell
 sudo tee /etc/modules-load.d/containerd.conf <<EOF
@@ -140,13 +140,13 @@ EOF
 sudo sysctl --system	# 重新加载 sysctl
 ```
 
-#### 同步时间 (非必须)
+### 同步时间 (非必须)
 
 如果时间不同步在 apt update 或 K8s 加入时可能会产生问题，如果发现虚拟机时间严重不同步（可能和主机有时区上的差异，这无伤大雅，重要是虚拟机之间不能有太大差距），需要同步一下时间，这个就自己找找方法吧。
 
 
 
-#### 安装 Containerd
+### 安装 Containerd
 
 在写这篇博客的时候，Kubernetes 最新版本就是 1.25.4。在这个版本的K8s官方镜像地址貌似从 k8s.gcr.io 变成了 registry.k8s.io，所以在其他地方看见这两个地址需要格外关注，以防被坑。当然，本博客不会在这个地方坑你，因为我都踩过了。。。
 
@@ -205,7 +205,7 @@ sudo sysctl --system	# 重新加载 sysctl
 
 
 
-#### 安装 Kubernetes
+### 安装 Kubernetes
 
 再重复一遍，以防被坑：在写这篇博客的时候，Kubernetes 最新版本就是 1.25.4。如果你想复现，可能需要自己指定版本😬
 
@@ -238,25 +238,25 @@ sudo sysctl --system	# 重新加载 sysctl
 
 
 
-### 虚拟机的复制和单独修改
+## 虚拟机的复制和单独修改
 
 执行完上面的配置，你就可以关掉虚拟机并复制出多个副本了。
 
 然后对每一个虚拟机都需要单独进行下述设置：
 
-#### 主机名
+### 主机名
 
 使用的主机名和上面hosts文件里的主机名对K8s来说貌似没有必须的要求，不需要完全一致，但保持一致更简单。
 
-如果你需要修改每一台虚拟机的主机名，使用类似如下命令即可：
+你需要修改每一台虚拟机的主机名，使用类似如下命令即可：
 
 ```bash
 sudo hostnamectl --static set-hostname [主机名]
 ```
 
-**最好别忘了修改每一台机器的 `/etc/hosts`**
+**最好别忘了修改每一台机器的 `/etc/hosts`和Virtualbox上的两张网卡的MAC地址**
 
-#### 修改 kubelet 配置 IP 地址
+### 修改 kubelet 配置 IP 地址
 
 不知道为什么，复制的虚拟机就会导致加入集群后 IP 为 10.0.2.15，识别成了 Virtualbox 的第一个网卡；而不是复制的就正常
 
@@ -278,9 +278,9 @@ sudo ip link delete cni0
 
 
 
-## 利用 kubeadm 拉起与加入 Kubernetes 集群
+# 利用 kubeadm 拉起与加入 Kubernetes 集群
 
-### 初始化集群 (master节点)
+## 初始化集群 (master节点)
 
 1. 在 K8s 的 master 节点拉起集群
    下面是命令示例：
@@ -308,7 +308,7 @@ sudo ip link delete cni0
 
 
 
-### 加入集群 (其他节点)
+## 加入集群 (其他节点)
 
 输入加入指令（master节点初始化后输出的指令），加入sudo
 
@@ -333,7 +333,7 @@ kubeadm token create --print-join-command
 
 
 
-### 检查集群状态 (主节点)
+## 检查集群状态 (主节点)
 
 ```shell
 kubectl cluster-info
