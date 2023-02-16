@@ -256,9 +256,21 @@ sudo hostnamectl --static set-hostname [主机名]
 
 **最好别忘了修改每一台机器的 `/etc/hosts`和Virtualbox上的两张网卡的MAC地址**
 
+### IP 配置
+
+### 网络配置
+
+和之前第一台虚拟机一样，修改 netplan 配置文件。
+
+执行 `sudo vim /etc/netplan/00-installer-config.yaml`，自行修改IP：
+
+![image-20221124134250904]({{ site.url }}/assets/2022-11-24-Kubernetes-1.25.4.assets/image-20221124134250904.png)
+
+然后执行 `sudo netplan apply` 即可。
+
 ### 修改 kubelet 配置 IP 地址
 
-不知道为什么，复制的虚拟机就会导致加入集群后 IP 为 10.0.2.15，识别成了 Virtualbox 的第一个网卡；而不是复制的就正常
+不知道为什么，复制的虚拟机就会导致加入集群后 INTERNAL-IP 为 10.0.2.15，识别成了 Virtualbox 的第一个网卡；而不是复制的就正常。
 
 为了修正这个问题（我不知道怎么彻底修正），在每台虚拟机上都这样做：
 
@@ -266,6 +278,8 @@ sudo hostnamectl --static set-hostname [主机名]
 echo KUBELET_EXTRA_ARGS=\"--node-ip=`ip addr show enp0s8 | grep inet | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}/" | tr -d '/'`\" | sudo tee /etc/default/kubelet	# 这个文件路径定义在/etc/systemd/system/kubelet.service.d/10-kubeadm.conf中
 sudo systemctl restart kubelet
 ```
+
+这是为了手动指定Kubelet的IP地址，`--node-ip`后面的命令是为了自动截取IP地址， 你也可以自己指定。
 
 如果后面出现了NotReady或者flannel网络错误可以尝试一下重启机器或者：
 
