@@ -1,0 +1,694 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0066)http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  
+  <title>Headless Server</title>
+  <meta content="Eduard Carcolé" name="author">
+  <meta content="This is a tutorial on how to setup a headless computer, or a computer without monitor in a Debian system" name="description">
+
+<style>     
+     .borderstyle {  
+       border-width: 2px;  
+       border-color: brown;  
+       border-style: ridge;  
+     }  
+ </style>  
+
+<script type="text/javascript" async="" src="./Headless Server_files/ga.js"></script><script type="text/javascript"> window.jstiming.load.tick('cl'); </script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35089762-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<style>hcfy-result.__hcfy__result__loaded__.__hcfy__result__both__{border: 1px dotted}</style></head>
+
+
+<!--------------------------------------------------- BODY -->
+
+
+<body topmargin="30" rightmargin="0" leftmargin="0" style="background-image: url(Image100.jpg);font-size:16px;font-family:tahoma">
+
+<div id="principal" style="width:1220px;margin-top:5px;margin-left:auto;margin-right:auto">
+
+
+<!--------------------------------------------------- TITLE ----->
+
+<div id="title" class="borderstyle" style="background-color:#FFF8DC">
+
+<p style="text-align:center; color:rgb(204,0,0); font-weight:bold; font-size:40px; ">
+How to Setup a Headless Computer
+
+<span style="color: rgb(153, 0, 0); font-size:20px;">
+<br><br>
+</span>
+
+<span style="color: rgb(153, 0, 0); font-size:30px;">
+a computer with no monitor working with Debian</span>
+</p>
+</div>
+<br>
+
+
+<!----------------------------------------------------- INDEX ------------------->
+
+<div id="menu" style="width:200px;margin:0;padding:0;margin-right:15;background-image: url(Image100.jpg);float:left;">
+
+
+<div id="menu_1" style="margin:0;padding:10;margin-right:0;background-color:	#FFF8DC;" class="borderstyle">
+<span style="color: rgb(153, 0, 0); font-size:12px;">
+<b>Index</b>
+<ol start="0">
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html#0">Headless Computer</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html#1">Installation of a Dummy Display Driver</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html#2">Headless Computer with an Nvidia card (propietary driver installed)</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html#3">Headless Computer with a Radeon card with free drivers</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html#4">Another approach for Nvidia/Radeon/Intel graphics card working with free drivers</a></li><p></p>
+</ol>
+</span>
+</div>
+
+
+<br>
+
+<div id="menu_2" style="margin:0;padding:10;margin-right:0;background-color:#FFF8DC;" class="borderstyle">
+<span style="color: rgb(153, 0, 0); font-size:12px;">
+<b>Debian Server Tutorials</b>
+<ul>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/arno_iptables_firewall.html">Arno's Iptables Firewall</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux/html/12-vsftp.html">vsftpd</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux/html/17-squid.html">Reverse Proxy with Squid (server accelerator)</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux/html/modsecurity-in-apache-2-6-7.html">Apache/Modsecurity</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux/html/darkstat.html">Darkstat</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux/html/16-snort.html">Snort</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/vnc.html">VNC</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux/html/dns-server-for-a-lan.html">DNS server for a very small LAN</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/dsl/dsl.html">Server set up with Damn Small Linux (based on Debian)</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html">How to Setup a Headless Computer</a></li><p></p>
+
+</ul>
+</span>
+</div>
+
+
+<br>
+
+
+<div id="menu_3" style="margin:0;padding:10;margin-right:0;background-color:#FFF8DC;" class="borderstyle">
+<span style="color: rgb(153, 0, 0); font-size:12px;">
+<b>Other Stuff</b>
+<ul>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/xfce_wheezy.html">XFCE in Debian Wheezy</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/wine.html">How to Setup Wine in a Debian System</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/boot.html">Starting applications during boot</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/persistence.html">Debian Live Iso-Hybrid with persistence </a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/find.html">Finding Files</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/pyrit.html">Tcpdump &amp; Pyrit</a></li><p></p>
+<p></p><li><a href="http://cosmolinux.no-ip.org/raconetlinux2/aircrack_ng.html">Aircrack-ng</a></li><p></p>
+</ul>
+</span>
+</div>
+
+
+
+
+<br>
+
+<div id="menu_4" style="margin:0;padding:10;margin-right:0;background-color:#FFF8DC;" class="borderstyle">
+<span style="color: rgb(153, 0, 0); font-size:12px;">
+<b>Home Page Link</b>
+<br>
+<br>
+<center>
+<a href="http://cosmolinux.no-ip.org/index.html"><img src="http://cosmolinux.no-ip.org/raconetlinux2/boto.jpg" align="center" alt="Back home" style="border: 2px solid ; width: 40px; height: 40px;"></a> 
+</center>
+
+</span>
+</div>
+
+</div>
+
+<!----------------------------------------------------- TUTORIAL ------------------->
+
+
+<div id="tutorial" style="width:960px;float:left;margin:0;padding:20;background-color:#FFF8DC" class="borderstyle">
+
+
+<!------------------------------------------------------------APARTAT-0-->
+<h2><span style="font-weight: bold;">
+<p>
+<a id="0">0. Headless Computer</a>
+</p>
+</span></h2>
+<!---------------------------------------------------------------------->
+
+<p>
+A headless system is a computer system or device that has been configured to operate without a monitor (the missing "head"), keyboard, and mouse. 
+A headless system is typically controlled via a network connection.
+One possiblility is to use VNC. 
+You have a tutorial <a href="http://cosmolinux.no-ip.org/raconetlinux2/vnc.html">about VNC here</a>.
+In this tutorial you will find the solutions to the problems that I had setting up headless servers with different graphics cards in a Debian system. 
+This tutorial is heavily "inspired" in the links you find in every section. 
+I collected all this information because it took me a while to get the full picture and I do not want to forget everything I learned solving this problem.   
+</p>
+
+<p>
+There are two ways to setup a headless computer. 
+The esiest one makes use of a dummy display driver, which does not actually display anything. 
+You will be able to control your system only through VNC or ssh. 
+You will get no output through your graphics card.
+You will be able to easily choose among a big variety of "virtual display" resolutions. 
+The "dummy headless system" is ready in a few minutes with no problems. 
+Just follow the procedure described in section 1.
+</p>
+
+<p>
+The other possibility, usually more troublesome, is to keep the current driver working. 
+This allows you to work through VNC or ssh and also plug and use the monitor if you need to do so.
+This may depend a bit on the kind of graphics card you have in your computer.
+I describe here what I did for an Ndivia card in section 2 and a Radeon card in section 3.
+As you will see the procedure is similar for every graphics card.
+</p>
+<p>
+An alternative procedure that I did not test is described in section 4 for Nvidia/ATI Radeon/Intel graphics cards.
+</p>	
+
+<p>
+If you are not so familiar with graphics card management, Xorg and so on, I recommend to take a look at the following tutorials from Debian web pages:
+</p>
+
+<a href="https://wiki.debian.org/Xorg">Xorg (Debian wiki)</a><br>
+<a href="https://wiki.debian.org/NvidiaGraphicsDrivers">NvidiaGraphicsDrivers (Debian wiki)</a><br>
+<a href="https://wiki.debian.org/AtiHowTo">AtiHowTo (Debian wiki)</a><br>
+
+<p>
+where you will find information mainly about drivers. 
+</p>
+ 
+<p>
+It is also pays off to read from the ArchLinux wiki:
+</p>
+ 
+<a href="https://wiki.archlinux.org/index.php/xorg">Xorg (Archwiki)</a><br>
+<a href="https://wiki.archlinux.org/index.php/NVIDIA">Nvidia (Archwiki)</a><br>
+<a href="https://wiki.archlinux.org/index.php/ATI">ATI Radeon (Archwiki)</a><br>
+
+<p>
+where xorg.conf files and options of the graphics card are very nicely described.
+</p>
+
+	
+	
+<!------------------------------------------------------------APARTAT-1-->
+<h2><span style="font-weight: bold;">
+<p>
+<a id="1">1. Installation of a Dummy Display Driver</a>
+</p>
+</span></h2>
+<!---------------------------------------------------------------------->
+
+<p>
+The dummy display driver does not display anything. 
+You will get no output through your graphics card.
+The idea is that you want to be able to control your system only through VNC or ssh.
+With the dummy driver you choose among a big variety of "virtual display" resolutions to fit your needs. 
+</p>
+
+<p>
+To install the dummy driver open a terminal and type:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo apt-get install xserver-xorg-video-dummy</span>
+</p>
+
+<p>
+Next step, we have to configure the virtual display for VNC. 
+This is done by writting a configuration file: /etc/X11/xorg.conf. 
+If you already have such a file in your system, change its name:
+</p><p>
+
+</p><p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo mv /etc/X11/xorg.conf /etc/X11/xorg.conf.old</span></p>
+
+<p>
+We create the new one: </p>	
+<p></p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo mv /etc/X11/xorg.conf /etc/X11/xorg.conf.old</span>
+</p>
+
+<p>
+And fill it with the following content:
+</p>
+
+<blockquote>
+
+# This xorg configuration file is meant to be used<br> 
+# to start a dummy X11 server.<br>
+# For details, please see:<br>
+# https://www.xpra.org/xorg.conf<br>
+<br>
+# Here we setup a Virtual Display of 1600x900 pixels<br>
+<br>
+Section "Device"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier  "Configured Video Device"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Driver      "dummy"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;#VideoRam 4096000<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;#VideoRam 256000<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;VideoRam    16384<br>
+EndSection<br>
+<br>
+Section "Monitor"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier  "Configured Monitor"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;HorizSync   5.0 - 1000.0<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;VertRefresh 5.0 - 200.0<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Modeline "1600x900" 33.92 1600 1632 1760 1792 900 921 924 946<br>
+EndSection<br>
+<br>
+Section "Screen"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier  "Default Screen"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Monitor     "Configured Monitor"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Device      "Configured Video Device"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;DefaultDepth 24<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SubSection "Display"<br>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Viewport 0 0<br>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depth 24<br>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Virtual 1600 900<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;EndSubSection<br>
+EndSection<br>
+<br>
+
+</blockquote>
+
+<p>
+This configuration file corresponds to a virtual display of 1600x900.
+There are many other modes that you can find here: <a href="https://www.xpra.org/xorg.conf">https://www.xpra.org/xorg.conf</a>.
+Just change the Modeline and Virtual depending on your needs. 
+If you increase the size of your virtual screen you may need also to increase the VideoRam parameter.
+To have an idea, it seems that a display of 16384x8192 needs "VideoRam 256000".
+After making the changes, reboot the system, access the computer with VNC, and check the log file <b>/var/log/Xorg.0.log</b> carefully. 
+Check if there are any errors, like for instance not enough memory. 
+In that case you will get a smaller display. 
+Increasing VideoRam you will easily solve the problem. 
+</p>
+
+<p>
+A list of some other common modes:
+</p>
+
+<blockquote>
+  Modeline "1920x1080" 23.53 1920 1952 2040 2072 1080 1106 1108 1135<br>
+  Modeline "1680x1050" 20.08 1680 1712 1784 1816 1050 1075 1077 1103<br>
+  Modeline "1600x1200" 22.04 1600 1632 1712 1744 1200 1229 1231 1261<br>
+  Modeline "1600x900" 33.92 1600 1632 1760 1792 900 921 924 946<br>
+  Modeline "1440x900" 30.66 1440 1472 1584 1616 900 921 924 946<br>
+  ModeLine "1366x768" 72.00 1366 1414 1446 1494  768 771 777 803<br>
+  Modeline "1280x1024" 31.50 1280 1312 1424 1456 1024 1048 1052 1076<br>
+  Modeline "1280x800" 24.15 1280 1312 1400 1432 800 819 822 841<br>
+  Modeline "1280x768" 23.11 1280 1312 1392 1424 768 786 789 807<br>
+  Modeline "1360x768" 24.49 1360 1392 1480 1512 768 786 789 807<br>
+  Modeline "1024x768" 18.71 1024 1056 1120 1152 768 786 789 807<br>
+</blockquote>
+<p>
+
+</p>
+
+
+<!------------------------------------------------------------APARTAT-2-->
+<h2><span style="font-weight: bold;">
+<p>
+<a id="2">2. Headless Computer with an Nvidia card (propietary driver installed)</a>
+</p>
+</span></h2>
+<!---------------------------------------------------------------------->
+<p>
+If you are reading this section is because you have an nvidia graphics card and you wish to keep the current driver working on your headless computer. 
+This allows you to work through VNC or ssh. But it also allows you to attach and use the monitor if you want to do so.
+First thing to do is to obtain an /etc/X11/xorg.conf file.
+You can get one easily using some nvidia utilities. Install the following packages (if you already do not have them):
+</p><p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo apt-get install nvidia-settings nvidia-xconfig 
+</span></p>
+
+<p>
+and then you get your xorg.conf file by issuing:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo nvidia-xconfig 
+</span></p>
+
+<p>This is a nice starting point. In my case I finally used a file like this one:</p>
+
+
+<blockquote>
+# nvidia-xconfig: X configuration file generated by nvidia-xconfig<br>
+# nvidia-xconfig:  version 1.0  (buildd@barber)  Sun Jun 13 12:08:56 UTC 2010<br>
+
+Section "ServerLayout"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier     "Layout0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Screen      0  "Screen0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;InputDevice    "Keyboard0" "CoreKeyboard"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;InputDevice    "Mouse0" "CorePointer"<br>
+EndSection<br>
+<br>
+Section "Files"<br>
+EndSection<br>
+<br>
+Section "InputDevice"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;# generated from default<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier     "Mouse0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Driver         "mouse"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "Protocol" "auto"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "Device" "/dev/psaux"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "Emulate3Buttons" "no"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "ZAxisMapping" "4 5"<br>
+EndSection<br>
+<br>
+Section "InputDevice"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;# generated from default<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier     "Keyboard0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Driver         "kbd"<br>
+EndSection<br>
+<br>
+Section "Monitor"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier     "Monitor0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;VendorName     "Unknown"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;ModelName      "Unknown"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;HorizSync       30.0 - 81.0<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;VertRefresh     56.0 - 75.0<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "DPMS"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "DPI" "92 x 88"<br>
+EndSection<br>
+<br>
+Section "Device"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier     "Device0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Driver         "nvidia"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;VendorName     "NVIDIA Corporation"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "RenderAccel" "1"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "TripleBuffer" "1"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "Coolbits" "1"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "DamageEvents" "1"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "RegistryDwords" "PerfLevelSrc=0x3333"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Option         "RegistryDwords" "PerfLevelSrc=0x2222"<br>
+EndSection<br>
+<br>
+Section "Screen"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Identifier     "Screen0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Device         "Device0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Monitor        "Monitor0"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;DefaultDepth    24    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SubSection     "Display"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depth       24<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modes      "1680x1050"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;EndSubSection<br>
+EndSection<br>
+</blockquote>
+
+<p>
+There are several things to check. 
+First, this file allows to get a screen with 1680x1050 pixels, as indicated in the "Modes" line.
+If this line is missing you should add it with the resolution of your monitor.
+If you are lucky, the values for "HorizSync" and "VertRefresh" will be correct for the resolution of your monitor.
+If you are not lucky, when you restart the system with no monitor, may be you will get a 640x480 small screen when using VNC. 
+</p>
+
+<p> 
+One way to get "HorizSync" and "VertRefresh" for a monitor in Debian Wheezy, install the program xresprobe:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo apt-get install xresprobe
+</span></p>
+
+<p>Then you type:</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo ddcprobe 
+</span></p>
+
+
+<p>You will get a long list of characteristics of your monitor. 
+By the end of the list you should get something like "monitorrange: 24-82, 50-75". 
+Those are the values you need for"HorizSync" and "VertRefresh".</p>
+
+<p>Once you have your xorg.conf, you are ready to restart the system with no monitor. 
+To solve any problems you should carefully check the log file /var/log/Xorg.0.log</p>
+
+<p>Please check also what to do if you have a free driver installed just in case it helps you (section 3).</p>
+
+
+<!------------------------------------------------------------APARTAT-3-->
+<h2><span style="font-weight: bold;">
+<p>
+<a id="3">3. Headless Computer with a Radeon card with free drivers</a>
+</p>
+</span></h2>
+<!---------------------------------------------------------------------->
+
+<p>
+If you are reading this section is because you have an ATI Radeon graphics card and you wish to keep the current driver working on your headless computer. 
+This allows you to work through VNC or ssh. But it also allows you to attach and use the monitor if you want to do so.
+First thing to do is to obtain an /etc/X11/xorg.conf file.
+The starting point is to the console via Ctrl+Alt+F6. You may get out from the console later on via Ctrl+Alt+F7. 
+You log in and then stop the display manager. If you do not know which one are you using just type:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo /etc/init.d/gdm stop &amp;&amp; /etc/init.d/gdm3 stop &amp;&amp; /etc/init.d/kdm stop &amp;&amp; /etc/init.d/xdm stop
+</span></p>
+
+<p>
+Then you generate an /root/xorg.conf.new file by:
+
+</p><p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo Xorg -configure
+</span></p>
+
+<p>
+Now you start working using that file. Probably you can not use it directly, but it is a nice starting point. Better than nothing.
+</p>
+
+My final /etc/X11/xorg.conf file looks like this:
+
+<blockquote>
+<br>
+Section "ServerLayout"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Identifier     "X.org Configured"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Screen      0  "Screen0" 0 0<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;InputDevice    "Mouse0" "CorePointer"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;InputDevice    "Keyboard0" "CoreKeyboard"<br>
+EndSection<br>
+<br>
+Section "Files"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;ModulePath   "/usr/lib/xorg/modules"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/misc"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/cyrillic"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/100dpi/:unscaled"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/75dpi/:unscaled"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/Type1"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/100dpi"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/usr/share/fonts/X11/75dpi"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;FontPath     "built-ins"<br>
+EndSection<br>
+<br>
+Section "Module"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Load  "record"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Load  "dri2"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Load  "extmod"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Load  "dbe"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Load  "glx"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Load  "dri"<br>
+EndSection<br>
+<br>
+Section "InputDevice"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Identifier  "Keyboard0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Driver      "kbd"<br>
+EndSection<br>
+<br>
+Section "InputDevice"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Identifier  "Mouse0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Driver      "mouse"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Option	    "Protocol" "auto"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Option	    "Device" "/dev/input/mice"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Option	    "ZAxisMapping" "4 5 6 7"<br>
+EndSection<br>
+<br>
+Section "Monitor"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;#DisplaySize	  460   300	# mm<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Identifier   "Monitor0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;VendorName   "SAM"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;ModelName    "SyncMaster"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;HorizSync    30.0 - 81.0<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;VertRefresh  56.0 - 75.0<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Option	    "DPMS"<br>
+EndSection<br>
+<br>
+Section "Device"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;### Available Driver options are:-<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;### Values: &lt;i&gt;: integer, &lt;f&gt;: float, &lt;bool&gt;: "True"/"False",<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;### &lt;string&gt;: "String", &lt;freq&gt;: "&lt;f&gt; Hz/kHz/MHz"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;### [arg]: arg optional<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Option     "AccelMethod"               "EXA"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Option     "MigrationHeuristic"        "greedy"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Option     "EnablePageFlip"     	"on"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Option     "AccelDFS"           	"on"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Option     "RenderAccel"        	"on"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Option     "ColorTiling"        	"on"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Identifier  "Card0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Driver      "radeon"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;VendorName  "ATI Technologies Inc"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;BoardName   "RV280 [Radeon 9200]"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;BusID       "PCI:1:0:0"<br>
+EndSection<br>
+<br>
+Section "Screen"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Identifier "Screen0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Device     "Card0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;Monitor    "Monitor0"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;SubSection "Display"<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Viewport   0 0<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depth      24<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modes     "1680x1050"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;EndSubSection<br>
+EndSection<br>
+<br>
+</blockquote>
+
+<p>You have to pay special attention to the "Modes" line in the "Screen" section. If you do not have it, add your own corresponding to your monitor.
+The values for "HorizSync" and "VertRefresh" will probably not be correct for the resolution of your monitor.</p>
+
+<p> 
+One way to get "HorizSync" and "VertRefresh" for a monitor in Debian Wheezy, is to install the program xresprobe:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo apt-get install xresprobe
+</span></p>
+
+<p>Then you type:</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo ddcprobe 
+</span></p>
+
+<p>You will get a long list of characteristics of your monitor. 
+By the end of the list you should get something like "monitorrange: 24-82, 50-75". 
+Those are the values you need for "HorizSync" and "VertRefresh".</p>
+
+<p>
+Once you have your xorg.conf, you have to edit the following file:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+sudo gedit /etc/modprobe.d/radeon-kms.conf
+</span></p>
+<p>
+And set modeset to zero:
+</p>
+
+<p><span style="color: rgb(0, 102, 0); font-style: italic;">
+options radeon modeset=0
+</span></p>
+
+<p>
+You are ready now to restart the system with no monitor. 
+To solve any problems you should carefully check the log file /var/log/Xorg.0.log.
+If you get a small virtual screen you should recheck "HorizSync" and "VertRefresh".
+</p>
+
+
+
+
+<!------------------------------------------------------------APARTAT-4-->
+<h2><span style="font-weight: bold;">
+<p>
+<a id="4">4. Another approach for Nvidia/Radeon/Intel graphics card working with free drivers</a>
+</p>
+</span></h2>
+<!---------------------------------------------------------------------->
+
+<p>Another nice approach described in <a href="http://forums.debian.net/viewtopic.php?f=16&amp;t=59959%22">Debian forums</a> is the following:</p>
+
+<p>
+Step 1. Create a xorg.conf in /etc/X11 with the following:
+</p>
+
+<blockquote>
+Section "Device"<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;Identifier "VNC Device"<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;Driver "vesa"<br>
+EndSection<br>
+<br>
+Section "Screen"<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;Identifier "VNC Screen"<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;Device "VNC Device"<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;Monitor "VNC Monitor"<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;SubSection "Display"<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modes "1024x768"<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;EndSubSection<br>
+EndSection<br>
+<br>
+Section "Monitor"<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;Identifier "VNC Monitor"<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;HorizSync 30-70<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;VertRefresh 50-75<br>
+EndSection<br>
+</blockquote>
+
+<p>
+Step 2. Disable KMS for your video card as described here https://wiki.ubuntu.com/X/KernelModeSetting
+</p>
+<p>
+The jist is to know which video card manufacturer you have and use the command line entry below it to create the appropriate kms.conf file with the line "options...modeset=0" line in it. 
+If you have access to the GUI you could just are easily create/modify the file and put the "options...modeset=0" in as appropriate.
+</p>
+<p>
+The following are input into the terminal windows as a line command.
+</p>
+
+<blockquote>
+# ATI Radeon:<br>
+echo options radeon modeset=0 &gt; /etc/modprobe.d/radeon-kms.conf<br>
+<br>
+# Intel:<br>
+echo options i915 modeset=0 &gt; /etc/modprobe.d/i915-kms.conf<br>
+<br>
+# Nvidia (this should revert you to using -nv or -vesa):<br>
+echo options nouveau modeset=0 &gt; /etc/modprobe.d/nouveau-kms.conf<br>
+</blockquote>
+
+<p>
+Step 3. Reboot...Putty In...startx...GTG!
+</p>
+
+<p>Again notice that if you change the "Modes" option you have to change "HorizSync" and "VertRefresh" accordingly.</p>
+
+<p>It is my wish this page is helpful to someone. At least it is useful to myself!</p>
+
+
+
+
+</div>
+</div>
+
+<!----------------------------------------------------- Separacio Final 3 espais ------------------->
+
+<div style="width:1220px;margin-top:5px;margin-left:auto;margin-right:auto;padding:0px;clear:both">
+<span style="font-size:14px;">
+<br><br><br>
+</span>
+</div>
+
+
+
+
+
+</body><div style="all: initial;"><div id="__hcfy__" style="all: initial;"></div></div></html>

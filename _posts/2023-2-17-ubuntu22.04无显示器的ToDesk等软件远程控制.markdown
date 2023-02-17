@@ -1,0 +1,131 @@
+---
+layout: post
+title:  "ubuntu22.04无显示器的ToDesk等软件远程控制"
+date:   2022-02-17 12:00:00 +0800
+categories: Ubuntu 无显示器 ToDesk 远程控制
+---
+
+
+
+## 目标
+
+在 Ubuntu 22.04 无显示器主机上实现 ToDesk/TeamViewer 等软件的远程控制，尽可能让读者能够复刻，内含一些注意事项。
+
+参考：
+
+参考都是些外网网站，给链接你可能也打不开，所以这里一并给出文件了
+
+链接：
+
+> [How to run X server using xserver-xorg-video-dummy driver on Ubuntu - TechOverflow](https://techoverflow.net/2019/02/23/how-to-run-x-server-using-xserver-xorg-video-dummy-driver-on-ubuntu/)
+>
+> [Headless Server - dummy_radeon_nvidia](http://cosmolinux.no-ip.org/raconetlinux2/dummy_radeon_nvidia.html)
+>
+> [VNC远程登录无外接显示器的Ubuntu Desktop - 简书 (jianshu.com)](https://www.jianshu.com/p/1b9b71f38827)
+
+
+
+文件（前两个链接）：
+
+[How to run X server using xserver-xorg-video-dummy driver on Ubuntu - TechOverflow]({{site.url}}/assets/2023-2-17-ubuntu22.04无显示器的ToDesk等软件远程控制/How to run X server using xserver-xorg-video-dummy driver on Ubuntu - TechOverflow.html)
+
+[Headless Server - dummy_radeon_nvidia]({{site.url}}/assets/2023-2-17-ubuntu22.04无显示器的ToDesk等软件远程控制/Headless Server.html)
+
+
+
+## 注意事项和背景说明
+
+**不要装显卡驱动！！**
+
+**不要装显卡驱动！！**
+
+**不要装显卡驱动！！**
+
+**不要闲的没事干在 Ubuntu 上装显卡驱动！！远控会出问题的！**
+
+背景说明：
+
+* 我设置了自动登录，并且提前安装、配置、登录好了ToDesk（开机自启），不知道不自动登录有何影响
+* 我这台机器不是 Ubuntu Server 版，而是插显示器能用桌面环境的标准 Ubuntu 22.04
+* 我忘记了我有没有装 xorg 的一些包，
+
+
+
+## 修改 gdm3 桌面环境配置
+
+Ubuntu 22.04 默认采取的是 gdm3 作为管理器，默认采用 Wayland 显示协议，其实系统里还有 X11，目前主要的远程控制软件都是使用 X11 的，所以我们先切换到 X11。
+
+按理来说你的 Ubuntu 如果版本够高满足使用 gdm3 + Wayland 都可以跟着做。
+
+用下面的命令检查你的显示协议：
+
+```bash
+echo $XDG_SESSION_TYPE
+# x11/wayland
+```
+
+### 修改显示协议为 X11
+
+```bash
+sudo vim /etc/gdm3/custom.conf
+```
+
+然后将 `#WaylandEnable=false` 注释去除，即设置 `WaylandEnable=false`；
+
+然后**重启机器**，再次检查`echo $XDG_SESSION_TYPE`，应该为 `x11`。
+
+
+
+## 安装虚拟显示器 xserver-xorg-video-dummy
+
+```bash
+sudo apt install xserver-xorg-video-dummy
+```
+
+之后创建并编辑`/etc/share/X11/xorg.conf.d/xorg.conf`，输入以下内容并保存：
+
+```bash
+sudo vim /etc/share/X11/xorg.conf.d/xorg.conf
+```
+
+
+
+```bash
+Section "Monitor"
+  Identifier "Monitor0"
+  HorizSync 28.0-80.0
+  VertRefresh 48.0-75.0
+  # https://arachnoid.com/modelines/
+  # 1920x1080 @ 60.00 Hz (GTF) hsync: 67.08 kHz; pclk: 172.80 MHz
+  Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
+EndSection
+
+Section "Device"
+  Identifier "Card0"
+  Driver "dummy"
+  VideoRam 256000
+EndSection
+
+Section "Screen"
+  DefaultDepth 24
+  Identifier "Screen0"
+  Device "Card0"
+  Monitor "Monitor0"
+  SubSection "Display"
+    Depth 24
+    Modes "1920x1080_60.00"
+    Virtual 1920 1080
+  EndSubSection
+EndSection
+```
+
+上面这个我是实测能用的，1920x1080分辨率，需要其他分辨率的话你可能需要上网找找别的配置文件
+
+
+
+### 注意
+
+上面配置保存完成后，就不会再向显示器输出内容了，而是默认输出到虚拟显示器上，所以重启之后开机显示器会黑屏，但如果你的远程控制软件正常开机启动的话是可以被远控的，远控是正常的！
+
+如果你想恢复直连显示器，你需要用一些方式，比如远控软件或者Recovery Mode，移除或用其他方式使之失效`/etc/share/X11/xorg.conf.d/xorg.conf`并重启。
+
