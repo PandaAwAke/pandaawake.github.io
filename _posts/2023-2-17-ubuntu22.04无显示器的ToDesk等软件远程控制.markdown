@@ -82,10 +82,10 @@ sudo vim /etc/gdm3/custom.conf
 sudo apt install xserver-xorg-video-dummy
 ```
 
-之后创建并编辑`/etc/share/X11/xorg.conf.d/xorg.conf`，输入以下内容并保存：
+之后创建并编辑`/usr/share/X11/xorg.conf.d/xorg.conf`，输入以下内容并保存：
 
 ```bash
-sudo vim /etc/share/X11/xorg.conf.d/xorg.conf
+sudo vim /usr/share/X11/xorg.conf.d/xorg.conf
 ```
 
 
@@ -127,5 +127,5 @@ EndSection
 
 上面配置保存完成后，就不会再向显示器输出内容了，而是默认输出到虚拟显示器上，所以重启之后开机显示器会黑屏，但如果你的远程控制软件正常开机启动的话是可以被远控的，远控是正常的！
 
-如果你想恢复直连显示器，你需要用一些方式，比如远控软件或者Recovery Mode，移除或用其他方式使之失效`/etc/share/X11/xorg.conf.d/xorg.conf`并重启。
+如果你想恢复直连显示器，你需要用一些方式，比如远控软件或者Recovery Mode，移除或用其他方式使之失效`/usr/share/X11/xorg.conf.d/xorg.conf`并重启。
 
