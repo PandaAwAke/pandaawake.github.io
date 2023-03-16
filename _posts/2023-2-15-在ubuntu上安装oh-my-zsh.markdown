@@ -9,7 +9,7 @@ categories: Ubuntu Oh-my-zsh
 
 ## 目标
 
-在 Ubuntu 安装 Oh-my-zsh 和一些我用的插件。
+在 Ubuntu 22.04 上安装 Oh-my-zsh 和一些我用的插件。
 
 参考：[oh-my-zsh 国内安装及配置 - 掘金 (juejin.cn)](https://juejin.cn/post/7023578642156355592)
 
@@ -70,6 +70,8 @@ vim ~/.zshrc	# 你可以用别的编辑器
 我自己的配置文件（去掉注释）如下：
 
 ```bash
+export ZSH="$HOME/.oh-my-zsh"
+
 ZSH_THEME="af-magic"
 
 plugins=(
@@ -125,3 +127,6 @@ git clone https://github.com/paulirish/git-open.git $ZSH_CUSTOM/plugins/git-open
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
 
+
+
+然后右键终端背景，点配置文件首选项，点命令，选择“运行自定义命令而不是 Shell”，自定义命令填zsh即可。这样以后每次开终端就会变成zsh而不是bash了。
